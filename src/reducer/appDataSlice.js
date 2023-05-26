@@ -355,6 +355,7 @@ const appDataSlice = createSlice({
   reducers: {
     increment(state, action) {
       const order = action.payload.item;
+      console.log(order);
       state.restaurantName = action.payload.name;
       const mealsItemIdx=state.mealsCountry.country.findIndex((item)=>item.id===order.id);
       state.mealsCountry.country[mealsItemIdx].quantity++;
@@ -394,6 +395,7 @@ const appDataSlice = createSlice({
       const response = action.payload;
       console.log(response);
       state.mealsCountry = response;
+      state.cartItems=[];
     },
     decrement(state, action) {
       const outOrder = action.payload;

@@ -22,7 +22,7 @@ export default function ComplexGrid() {
     dispatch(appDataAction.increment({ item: item, name: mealsList.name }));
   };
   const decrementButtonHandler = (item) => {
-    dispatch(appDataAction.decrement({ item: item, name: mealsList.name }));
+    dispatch(appDataAction.decrement(item ));
   };
   return (
     <div>
@@ -33,6 +33,7 @@ export default function ComplexGrid() {
           width: "35%",
           height: "8%",
           margin: "20px auto",
+          marginTop:"6rem",
           boxShadow: "5px 5px 5px #353738",
           backgroundColor: "#e8e4e3",
           border: 3,

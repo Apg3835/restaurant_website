@@ -15,7 +15,7 @@ import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authSliceActions } from "../reducer/authSlice";
-import { getUserDataAction } from "../reducer/asyncAuthReducer";
+
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -74,7 +74,7 @@ function ResponsiveAppBar() {
   console.log(userData);
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "black" }}>
+    <AppBar position="fixed" sx={{ backgroundColor: "black" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -92,9 +92,8 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            THE BUKKHAD STREET
+            THE BHUKKHAD STREET
           </Typography>
-        
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -125,7 +124,6 @@ function ResponsiveAppBar() {
               }}
             ></Menu>
           </Box>
-         
 
           <Typography
             variant="h5"
@@ -144,34 +142,32 @@ function ResponsiveAppBar() {
             }}
             onClick={homePageHandler}
           >
-            THE BUKKHAD STREET
+            THE BHUKKHAD STREET
           </Typography>
-        
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
           <IconButton aria-label="cart">
-                  <StyledBadge
-                    badgeContent={badgeNumber.length}
-                    color="secondary"
-                  >
-                    <ShoppingCartIcon
-                      sx={{ color: "white", marginRight: 2 }}
-                      onClick={cartButtonHandler}
-                    />
-                  </StyledBadge>
-                </IconButton>
-
+            <StyledBadge badgeContent={badgeNumber.length} color="secondary">
+              <ShoppingCartIcon
+                sx={{ color: "white", marginRight: 2 }}
+                onClick={cartButtonHandler}
+              />
+            </StyledBadge>
+          </IconButton>
 
           <Box sx={{ flexGrow: 0 }}>
-          
             {userData !== undefined ? (
               <div>
-                
                 <Tooltip title="Open settings">
                   <IconButton
                     onClick={handleOpenUserMenu}
                     sx={{ p: 0, color: "white" }}
                   >
-                    <Avatar src="/broken-image.jpg" />
+                    {userData ? (
+                      <Avatar src={userData.photoUrl} />
+                    ) : (
+                      <Avatar src="/broken-image.jpg"></Avatar>
+                    )}
                   </IconButton>
                 </Tooltip>
               </div>
@@ -180,7 +176,7 @@ function ResponsiveAppBar() {
                 Sign In
               </Typography>
             )}
-          
+
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

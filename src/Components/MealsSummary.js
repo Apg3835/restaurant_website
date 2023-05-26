@@ -3,10 +3,12 @@ import "./MealsSummary.module.css";
 import { useSelector } from "react-redux";
 const MealsSummary = () => {
   const userData = useSelector((state) => state.auth.userProfileData);
+  console.log(userData);
   return (
     <section className={classes.summary}>
+       {userData && <h2>WELCOME {userData.displayName}</h2>}
       <h2>Delicious Food, Delivered To You</h2>
-      {userData && <h2>{userData.email}</h2>}
+     
       <p>
         Choose your favorite meal from our broad selection of available meals
         and enjoy a delicious lunch or dinner at home.

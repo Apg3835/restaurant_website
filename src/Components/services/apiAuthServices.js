@@ -1,15 +1,13 @@
-
-
 class apiAuthServices {
   BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:";
-  Web_Api_Key = 'AIzaSyA3sVLKYPpt_dgukES5Itqo4WGR9pnfg84';
+  Web_Api_Key = "AIzaSyDc3tQlGoh7_z96pzyMUA9NjFU89iUCQws";
   static getInstance() {
     return new apiAuthServices();
   }
   signUp = async (credential) => {
     console.log(3, credential);
     const response = await fetch(
-      this.BASE_URL + "signUp?key="+ this.Web_Api_Key,
+      this.BASE_URL + "signUp?key=" + this.Web_Api_Key,
       {
         method: "POST",
         body: JSON.stringify({
@@ -26,8 +24,7 @@ class apiAuthServices {
       const data = await response.json();
       // console.log(data, 4);
       return data;
-    }
-    else {
+    } else {
       const data = await response.json();
       let error = "Authentication-Failed";
       // console.log(data);
@@ -40,8 +37,7 @@ class apiAuthServices {
   signIn = async (credential) => {
     // console.log(3, credential);
     const response = await fetch(
-      this.BASE_URL +
-        "signInWithPassword?key="+this.Web_Api_Key,
+      this.BASE_URL + "signInWithPassword?key=" + this.Web_Api_Key,
       {
         method: "POST",
         body: JSON.stringify({
@@ -71,7 +67,7 @@ class apiAuthServices {
   forgotPassword = async (credential) => {
     // console.log(3, credential);
     const response = await fetch(
-      this.BASE_URL + "sendOobCode?key="+this.Web_Api_Key,
+      this.BASE_URL + "sendOobCode?key=" + this.Web_Api_Key,
       {
         method: "POST",
         body: JSON.stringify({
@@ -94,7 +90,7 @@ class apiAuthServices {
     const idToken = localStorage.getItem("idToken");
     // console.log(idToken);
     const response = await fetch(
-      this.BASE_URL + "lookup?key="+this.Web_Api_Key,
+      this.BASE_URL + "lookup?key=" + this.Web_Api_Key,
       {
         method: "POST",
         body: JSON.stringify({
@@ -112,18 +108,18 @@ class apiAuthServices {
     }
   };
   updateUserData = async (credential) => {
-    console.log(3,credential);
+    console.log(3, credential);
     const idToken = localStorage.getItem("idToken");
     // console.log(idToken);
     const response = await fetch(
-      this.BASE_URL + "update?key="+this.Web_Api_Key,
+      this.BASE_URL + "update?key=" + this.Web_Api_Key,
       {
         method: "POST",
         body: JSON.stringify({
           idToken: idToken,
-          displayName:credential.name,
-          photoUrl:credential.url,
-          returnSecureToken:true
+          displayName: credential.name,
+          photoUrl: credential.url,
+          returnSecureToken: true,
         }),
         headers: {
           "Content-Type": "application/json",

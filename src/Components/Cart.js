@@ -31,12 +31,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Cart() {
   const cartItem = useSelector((state) => state.restaurent.cartItems);
+  console.log(cartItem)
   const userData = useSelector((state) => state.auth.userProfileData);
   const restaurantName = useSelector(
     (state) => state.restaurent.restaurantName
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const mealsList = useSelector((state) => state.restaurent.mealsCountry);
   const [totalAmounts, setTotalAmounts] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const date = new Date(); // get current date and time
@@ -65,14 +67,13 @@ export default function Cart() {
 
     return;
   }, [cartItem]);
-  const restaurantOrderHandler = (name, date, amount,myorderArr) => {
+  const restaurantOrderHandler = (name, date, amount, myorderArr) => {
     dispatch(
       appDataAction.addItemsToMyOrderList({
         name,
         date,
         amount,
-        myorderArr
-        
+        myorderArr,
       })
     );
     navigate("/confirmorderpage");
@@ -93,13 +94,14 @@ export default function Cart() {
     const total = amountOfEachFoodItem.reduce((previous, current) => {
       return previous + current;
     });
-    setTotalAmounts(total);
+    setTotalAmounts(total.toFixed(2));
   };
 
   console.log(cartItem);
 
   const incrementButtonHandler = (item) => {
-    dispatch(appDataAction.increment(item));
+    console.log(item);
+    dispatch(appDataAction.increment({ item: item,name:mealsList.name}));
   };
   const decrementButtonHandler = (item) => {
     dispatch(appDataAction.decrement(item));
@@ -114,6 +116,7 @@ export default function Cart() {
             width: 493,
             //  height: 8,
             margin: "20px auto",
+            marginTop:"8rem",
             boxShadow: "5px 5px 5px #353738",
             backgroundColor: "#e8e4e3",
             border: 3,
@@ -145,7 +148,7 @@ export default function Cart() {
           </button>
         </Paper>
       ) : (
-        <div>
+        <div style={{marginTop:"5rem"}}>
           {cartItem.map((item) => (
             <Paper
               key={item.id}
@@ -223,7 +226,7 @@ export default function Cart() {
                   <Grid item>
                     <Typography variant="subtitle1" component="div">
                       ${item.price}x{item.quantity}=$
-                      {item.price * item.quantity}
+                      {(item.price * item.quantity).toFixed(2)}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -277,8 +280,7 @@ export default function Cart() {
                         restaurantName,
                         formattedDate,
                         totalAmounts,
-                        cartItem,
-                        
+                        cartItem
                       )
                     }
                   >
@@ -338,4 +340,3 @@ export default function Cart() {
     </div>
   );
 }
-
